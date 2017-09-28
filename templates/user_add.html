@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block body %}
+<a href="http://localhost:5000/">Users</a>
+<form method=post>
+  <dl>
+    {{ render_field(form.name) }}
+    {{ render_field(form.email) }}
+    {{ render_field(form.phone) }}
+    {{ render_field(form.m_phone) }}
+    {{ render_field(form.status) }}
+  </dl>
+  <p><input type=submit value=Register>
+</form>
+{% endblock %}

@@ -1,0 +1,81 @@
+body {
+    margin: auto;
+    background-color: #f3f3f3;
+}
+
+
+p {
+    font-family: verdana;
+    font-size: 20px;
+}
+
+table{
+    background-color: white;
+    border-collapse: collapse;
+}
+
+.header{
+    height: 30px;
+    background-color: #3e3333;
+}
+
+.logo{
+    vertical-align: -webkit-baseline-middle;
+    color: white;
+    font-family: cursive;
+}
+
+
+.search{
+    display: inline-block;
+}
+
+
+.wrapper{
+    margin: auto;
+    width: 70%;
+}
+
+.user_list_header{
+    position: relative;
+}
+
+.menu{
+    margin: 10 auto;
+    width: 20%;
+    padding: 10;
+    background-color: moccasin;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold
+}
+
+.add_user{
+    margin: 10px;
+    width: 20%;
+    padding: 10px;
+    background-color: moccasin;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold
+}
+
+.table_h{
+    background-color: #4e4e4e;
+    color: white;
+    height: 35px;
+    font-size: 0.8em;
+    font-weight: normal;
+    font-family: sans-serif;
+    vertical-align: middle;
+}
+
+.table_users{
+    width: 100%;
+    font-size: 1.1em;
+}
+
+td {
+    border: solid;
+
+}

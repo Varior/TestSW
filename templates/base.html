@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <meta  http-equiv = "Content-Type"   content = "text/html; charset=utf-8"  /> 
+     <meta  name = "viewport"   content = "width=device-width" > 
+     <meta  name = "keywords"   content = "" > 
+     <meta  name = "description"   content = "" > 
+     <link rel="stylesheet" href="/static/css/style.css">
+   </head>
+   <body>
+     <header class="header">
+       <div class="wrapper">
+         <span class="logo">Test for You</span>
+         <span>
+           <a href="http://localhost:5000/">Users</a>
+           <a href="">Courses</a>
+         </span>
+       </div>
+     </header>
+     <div class="wrapper">
+       {% block body %}           
+       {% endblock %}
+     </div>
+   </body>
+ </html> 
