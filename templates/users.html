@@ -9,7 +9,7 @@
             <input type="search" name="sname" placeholder="Search field">
             <span>USERS</span>
             <span>
-              <select name="records">
+              <select name="records" id="res">
                 <option value=10>10</option>
                 <option value=15>15</option>
                 <option value=20>20</option>
@@ -49,4 +49,25 @@
    {% if pagination %}
     {{ pagination.links }}
    {% endif %}
+<script type=text/javascript>
+var tmp = new Array();
+var tmp2 = new Array();
+var get = location.search;
+if (get != '') {
+  tmp = (get.substr(1)).split('&');
+  for (var i = 0; i < tmp.length; i++) {
+    tmp2 = tmp[i].split('=');}
+}
+switch (tmp2[1]) {
+    case "15":
+        f = 1;
+        break; 
+    case "20":
+        f = 2;
+        break; 
+    default: 
+        f = 0;
+}
+ document.getElementById("res").options[f].selected = true;
+ </script>
 {% endblock %}
