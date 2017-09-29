@@ -5,19 +5,18 @@
         <a href='http://localhost:5000/user/add'><img src="/static/img/icon_plus.png"></a>
         <form class="search">
           <p>
-            <input type="image" src="/static/img/search.png" alt="ОК">
-            <input type="search" name="sname" placeholder="Search field"> 
+            <input type="image" src="/static/img/icon_search.png" alt="ОК">
+            <input type="search" name="sname" placeholder="Search field">
+            <span>USERS</span>
+            <span>
+              <select name="records">
+                <option value=10>10</option>
+                <option value=15>15</option>
+                <option value=20>20</option>
+              </select>
+            </span>
           </p>
-        </form>
-      </span>
-      <span>USERS</span>
-      <span>
-        <select name="records">
-          <option value=10>10</option>
-          <option value=15>15</option>
-          <option value=20>20</option>
-        </select>
-      </span>
+        </form>      
     </div>
     <table class="table_users">
       <tr class="table_h">    
@@ -38,8 +37,8 @@
                       <span style="color: red">Inactive</span> 
                     {% endif %}
                   </td>            
-                  <td><a href='http://localhost:5000/user/{{ user[0] }}'>Update user</a>
-                      <a href='http://localhost:5000/user/{{ user[0] }}/delete'>Delete user</a>
+                  <td><a href='http://localhost:5000/user/{{ user[0] }}'><img src="/static/img/icon_feather-pen.png"></a>
+                      <a href='http://localhost:5000/user/{{ user[0] }}/delete'><img src="/static/img/icon_delete.png"></a>
                   </td>
               </tr>
           {% endfor %}
@@ -47,4 +46,5 @@
           ADD USER
         {% endif %}
     </table>
+    {{ pagination.links }}
 {% endblock %}

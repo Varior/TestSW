@@ -1,5 +1,6 @@
 import os.path
 from flask import Flask, request, redirect, render_template, send_from_directory
+from flask_paginate import Pagination, get_page_parameter
 from flaskext.mysql import MySQL
 from form.userForms import UserForm
 
@@ -17,24 +18,40 @@ mysql.init_app(app)
 @app.route('/static/<path:path>')
 def send_js(path):
     return send_from_directory('static', path)
+'''
+class Pagination(object):
+    """docstring for ClassName"""
+    def __init__(self, page, total, records):
+        self.page = page
+        self.total = total
+        self.records = records'''
+        
 
-
-@app.route('/user', methods=['GET'])
 @app.route('/', methods=['GET'])
+@app.route('/user', methods=['GET'])
 def users_list():
+    page = request.args.get(get_page_parameter(), type=int, default=1)
     qs = request.args.get("sname", type=str)
-    rec = request.args.get("records", 10,type=int)
+    rec = request.args.get("records",type=int)
+    if not rec:
+        rec = 10
+    cursor = mysql.connect().cursor()
+    cursor.callproc('count_all')
+    total = cursor.fetchall()
+    cursor.close()    
     if qs:
         cursor = mysql.connect().cursor()
         cursor.callproc('find_user',(qs,))
         users = cursor.fetchall()
         cursor.close()
         return render_template('users.html', users=users)
+    start = page*rec-rec
     cursor = mysql.connect().cursor()
-    cursor.callproc('find_all')
+    cursor.callproc('pagination', (start, rec))
     users = cursor.fetchall()
     cursor.close()
-    return render_template('users.html', users=users)
+    pagination = Pagination(page=page, total=total[0][0], per_page=rec, record_name='users')
+    return render_template('users.html', users=users, pagination=pagination)
 
 
 @app.route('/user/add', methods=['GET','POST'])
@@ -86,9 +103,9 @@ def user_update(user_id):
             cursor = mysql.connect().cursor()
             cursor.callproc('update_user',(user_id,_email,_phone,_mphone,_status))
             cursor.close()            
-            msg='successful update'
+            msg='User created successful'
             return redirect("/")    
-        return render_template('user_add.html', form=form)
+        return render_template('user_up.html', form=form)
         #return render_template('user_info.html', user=user, profile=profile, form=form, msg=msg)
     return render_template('error.html', msg_eror="not id {}".format(user_id))
 

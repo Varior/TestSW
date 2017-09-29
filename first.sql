@@ -26,7 +26,7 @@ CREATE PROCEDURE `create_user`(
   IN u_email VARCHAR(30),
   IN u_phone VARCHAR(15),
   IN u_m_phone VARCHAR(15),
-IN u_status TINYINT
+  IN u_status TINYINT
 )
 BEGIN
   INSERT INTO user_list(`user_name`,`user_email`,`user_phone`,`user_m_phone`,`user_status`)
@@ -138,7 +138,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `pagination`(    
   IN start INT,
-  records INT
+  IN records INT
 )
 BEGIN
   SET @page_query:=CONCAT("SELECT * 
@@ -148,5 +148,14 @@ BEGIN
   PREPARE page_query FROM @page_query;
   EXECUTE page_query;
   DEALLOCATE PREPARE page_query;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE `count_all`()
+BEGIN 
+  SELECT COUNT(*)
+  FROM user_list;
 END$$
 DELIMITER ;

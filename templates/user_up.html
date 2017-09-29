@@ -3,8 +3,10 @@
 {% block body %}
 <a href="http://localhost:5000/"><img src="/static/img/icon_directionalleft.png"></a>
 <form method=post>
-  <dl>
-    {{ render_field(form.name) }}
+  <dl> 
+    <dt>{{ form.name.label }}
+    <dd>{{ form.name(disabled=True) }}    
+    {{ form.name(type="hidden") }}
     {{ render_field(form.email) }}
     {{ render_field(form.phone) }}
     {{ render_field(form.m_phone) }}
