@@ -1,7 +1,7 @@
 from wtforms import Form, StringField, SelectField, validators
 from wtforms.validators import Required, Email, Optional
 
-class UserForm(Form):
+class UserUpdate(Form):
     name = StringField('Name')
     email = StringField('E-mail', validators = [Required(),Email()])
     phone = StringField('Phone')

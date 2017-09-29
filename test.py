@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, render_template, send_from_directory
 from flask_paginate import Pagination, get_page_parameter
 from flaskext.mysql import MySQL
 from form.userForms import UserForm
+from form.userUpdate import UserUpdate
 
 mysql = MySQL()
 app = Flask(__name__, static_url_path='')
@@ -88,7 +89,7 @@ def user_update(user_id):
     user = cursor.fetchone()
     cursor.close()
     if user:  
-        form = UserForm(request.form)
+        form = UserUpdate(request.form)
         if request.method == 'GET':
             form.name.data = user[1]
             form.email.data = user[2]

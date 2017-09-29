@@ -59,16 +59,6 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE `course_all`()
-BEGIN
-  SELECT *
-  FROM courses
-  ORDER BY course_id;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
 CREATE PROCEDURE `select_user`(    
   IN user_uid INT
 )
@@ -76,6 +66,18 @@ BEGIN
   SELECT * 
   FROM user_list
   WHERE user_id=user_uid;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE `find_course`(
+   IN user_uid INT
+)
+BEGIN
+  SELECT *
+  FROM courses
+  WHERE id_user=user_uid;
 END$$
 DELIMITER ;
 
