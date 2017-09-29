@@ -46,5 +46,7 @@
           ADD USER
         {% endif %}
     </table>
+   {% if pagination %}
     {{ pagination.links }}
+   {% endif %}
 {% endblock %}
