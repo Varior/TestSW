@@ -15,6 +15,8 @@ app.config['MYSQL_DATABASE_DB'] = 'Users'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
+COURSES_DIC = {"P012345":"Python-Base","P23456":"Python-Database","H345678":"HTML",
+               "J456789":"Java-Base", "JS543210":"JavaScript-Base"}
 
 @app.route('/static/<path:path>')
 def send_js(path):
@@ -76,11 +78,24 @@ def user_delete(user_id):
 
 @app.route('/user/<user_id>', methods=['GET','POST'])
 def user_update(user_id):
+    courses_fr={}
     msg=''
     cursor = mysql.connect().cursor()
     cursor.callproc('select_user',(user_id,))
     user = cursor.fetchone()
+    cursor.callproc('find_course',(user_id,))
+    courses = cursor.fetchall()
     cursor.close()
+    if courses:
+        code_col ={}
+        for code in courses:
+            code_col[code[2]]=code[1]
+        for course in COURSES_DIC:
+            if not course in code_col:
+                if not course in courses_fr:
+                 courses_fr[course]=COURSES_DIC[course]
+    else:
+        courses_fr=COURSES_DIC.copy()
     if user:  
         form = UserUpdate(request.form)
         if request.method == 'GET':
@@ -99,13 +114,26 @@ def user_update(user_id):
             cursor.close()            
             msg='User created successful'
             return redirect("/")    
-        return render_template('user_up.html', form=form)       
+        return render_template('user_up.html', form=form, courses=courses, courses_fr=courses_fr, user_id=user_id)       
     return render_template('error.html', msg_eror="not id {}".format(user_id))
 
 
+@app.route('/user/<user_id>/<course_code>/add')
+def add_course(user_id, course_code):
+    course_name = COURSES_DIC[course_code]
+    cursor = mysql.connect().cursor()
+    cursor.callproc('create_course',(course_name,course_code,user_id,))
+    cursor.close()
+    return redirect("/user/{}".format(user_id)) 
 
-@app.route('/del')
-def del_user(): pass
+
+@app.route('/user/<user_id>/<course_code>/delete')
+def del_course(user_id, course_code):
+
+    cursor = mysql.connect().cursor()    
+    cursor.callproc('delete_course',(user_id,course_code))
+    cursor.close()
+    return redirect("/user/{}".format(user_id)) 
 
 
 if __name__ == '__main__':

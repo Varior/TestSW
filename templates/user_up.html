@@ -12,7 +12,17 @@
     {{ render_field(form.phone) }}
     {{ render_field(form.m_phone) }}
     {{ render_field(form.status) }}
-  </dl>
+  </dl>  
+    {% if courses_fr %}      
+      {% for key in courses_fr %}      
+        <li>{{courses_fr[key]}}<a href='http://localhost:5000/user/{{ user_id }}/{{key}}/add'>+</a></li>     
+      {% endfor %}
+   {% endif %}
+  {% if courses %}
+    {% for courses in courses %}
+      {{courses[1]}}  <a href='http://localhost:5000/user/{{ user_id }}/{{courses[2]}}/delete'>x</a></li>
+    {% endfor %}
+   {% endif %}
   <p><input class="create_but" type=submit value=Save>
 </form>
 {% endblock %}

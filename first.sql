@@ -115,11 +115,12 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE `delete_course`(    
-  IN id_course INT
+  IN user_uid INT,
+  IN code_course VARCHAR(10)
 )
 BEGIN
   DELETE FROM courses
-  WHERE course_id=user_uid;
+  WHERE id_user=user_uid AND code=code_course;
 END$$
 DELIMITER ;
 
