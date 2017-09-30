@@ -19,13 +19,6 @@ mysql.init_app(app)
 @app.route('/static/<path:path>')
 def send_js(path):
     return send_from_directory('static', path)
-'''
-class Pagination(object):
-    """docstring for ClassName"""
-    def __init__(self, page, total, records):
-        self.page = page
-        self.total = total
-        self.records = records'''
         
 
 @app.route('/', methods=['GET'])
@@ -106,25 +99,8 @@ def user_update(user_id):
             cursor.close()            
             msg='User created successful'
             return redirect("/")    
-        return render_template('user_up.html', form=form)
-        #return render_template('user_info.html', user=user, profile=profile, form=form, msg=msg)
+        return render_template('user_up.html', form=form)       
     return render_template('error.html', msg_eror="not id {}".format(user_id))
-
-
-'''@app.route('/user/<owner_id>/delete/course', methods=['GET'])
-def course_delete(owner_id):
-    user_id = request.args.get("user_id")
-    owner_id=int(owner_id)  
-    if user_id:
-        user_id=int(user_id)
-        del_contact = Contacts.query.filter_by(owner_id=owner_id, user_id=user_id).first()
-        db.session.delete(del_contact)
-        db.session.commit()
-        _url = '/user/' + str(owner_id)+ '/contact'
-        return redirect(_url)
-    return render_template('error.html', msg_eror="not id {}".format(user_id))'''
-
-
 
 
 

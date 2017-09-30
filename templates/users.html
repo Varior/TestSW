@@ -1,29 +1,28 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="user_list_header">
-      <span>
-        <a href='http://localhost:5000/user/add'><img src="/static/img/icon_plus.png"></a>
-        <form class="search">
-          <p>
-            <input type="image" src="/static/img/icon_search.png" alt="ОК">
-            <input type="search" name="sname" placeholder="Search field">
-            <span>USERS</span>
+      <div>
+        <a class="add_user" href='http://localhost:5000/user/add'><img src="/static/img/icon_plus.png" width="34px" alt="Add User"></a>
+        <form class="search">         
+            <input class="search_button" type="image" src="/static/img/icon_search.png" alt="Search">
+            <input  class="search_form" type="search" name="sname" placeholder="Search field">
+            <span class="user_head">USERS</span>
             <span class="reco">
-              <select name="records" id="res" onchange="form.submit()">
+              <select class="reco_field" name="records" id="res" onchange="form.submit()">
                 <option value=10>10</option>
                 <option value=15>15</option>
                 <option value=20>20</option>
               </select>
-            </span>
-          </p>
-        </form>      
+            </span>          
+        </form> 
+      </div>     
     </div>
     <table class="table_users">
       <tr class="table_h">    
-        <th>NAME</th>
-        <th>E-MAIL</th>
-        <th>STATUS</th>
-        <th>ACTION</th>
+        <th class="t_col">NAME</th>
+        <th class="t_col">E-MAIL</th>
+        <th class="t_col">STATUS</th>
+        <th class="action">ACTION</th>
       </tr>
         {% if users %}
           {% for user in users %}
@@ -37,7 +36,7 @@
                       <span style="color: red">Inactive</span> 
                     {% endif %}
                   </td>            
-                  <td><a href='http://localhost:5000/user/{{ user[0] }}'><img src="/static/img/icon_feather-pen.png"></a>
+                  <td class="action"><a href='http://localhost:5000/user/{{ user[0] }}'><img src="/static/img/icon_feather-pen.png"></a>
                       <a href='http://localhost:5000/user/{{ user[0] }}/delete'><img src="/static/img/icon_delete.png"></a>
                   </td>
               </tr>

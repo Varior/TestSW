@@ -12,6 +12,11 @@ p {
 table{
     background-color: white;
     border-collapse: collapse;
+    border: hidden;
+}
+
+a:visited{
+    color: grey;
 }
 
 .header{
@@ -25,15 +30,63 @@ table{
     font-family: cursive;
 }
 
+.menu_courses{ 
+    vertical-align: -webkit-baseline-middle;
+    color: white;
+    text-decoration: none;
+ }
+
+.menu_user{
+    vertical-align: -webkit-baseline-middle;
+    margin-right: 20px;    
+    color: white;
+    text-decoration: none;
+}
 
 .search{
     display: inline-block;
 }
 
+.search_form{
+    border: 1px solid #d6d3d3;    
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    padding:8px;
+    padding-left: 40px;
+    margin-bottom:20px;
+    width:150px;
+}
+
+.add_user{
+    margin-top: -5px;
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+}
+
+.search_button{
+    position: absolute;   
+    z-index: 1;
+    height: 34px;
+}
+    
+.user_head{
+     position: absolute;    
+    display: inline-block;
+    margin-top: -60px;   
+    font-size: 2.5em;
+    font-weight: 900;    
+    left: 45%;
+}
+   
 
 .wrapper{
     margin: auto;
     width: 70%;
+    position: relative;
 }
 
 .user_list_header{
@@ -43,28 +96,28 @@ table{
 
 .reco{
     position: absolute;
-    right: 15px;
+    right: 0;
+    margin-top: -55px;
+}
+
+.reco_field{    
+    border: 1px solid #d6d3d3;    
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    padding:8px;
+    margin-bottom:20px;
+    width:80px;
 }
 
 .menu{
-    margin: 10 auto;
-    width: 20%;
-    padding: 10;
-    background-color: moccasin;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold
+    position: absolute;
+    right: 0
 }
 
-.add_user{
-    margin: 10px;
-    width: 20%;
-    padding: 10px;
-    background-color: moccasin;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold
-}
 
 .table_h{
     background-color: #4e4e4e;
@@ -81,12 +134,86 @@ table{
     font-size: 1.1em;
 }
 
-td{
-    border: solid;
+.t_col{
+    width: 30%;
+}
 
+.action{
+    width: 10%;
+}
+
+tr{    
+    border-top: solid;
+    border-top-color: #f3f3f3;
+}
+
+td{
+    padding-left: 2%;
+}
+
+th{
+    text-align: left;
+    padding-left: 2%;
 }
 
 ul{
     list-style-type: none;
-    display: inline-block;
+    display: table;
+    margin: 20px auto;
+}
+
+li{
+    display: inline-block;     
+    border: 1px solid #d6d3d3;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-left: 5px;
+    color: green;
+    background-color: white;
+}
+
+li a{
+    text-decoration: none;
+    color: gray;
+}
+
+.active a{
+    color: green;
+}
+
+
+li.previous.disabled{
+    background-color: grey;
+    color: white;
+}
+
+li.previous.disabled a{
+    background-color: grey;
+    color: white;
+}
+
+li.previous {
+    background-color: green;
+    color: white;
+}
+
+li.previous a{    
+    color: white;
+}
+
+
+.next {
+    background-color: green;
+    color: white;
+}
+
+li.next.disabled{
+    background-color: grey;
+    color: white;
+}
+
+.next a{
+    color: white;
 }
