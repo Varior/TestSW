@@ -5,8 +5,7 @@ body {
 
 
 p {
-    font-family: verdana;
-    font-size: 20px;
+    font-family: verdana;   
 }
 
 table{
@@ -77,9 +76,10 @@ a:visited{
      position: absolute;    
     display: inline-block;
     margin-top: -60px;   
-    font-size: 2.5em;
-    font-weight: 900;    
+    font-size: 1.5em;
+    font-weight: bold;    
     left: 45%;
+    font-family: sans-serif;
 }
    
 
@@ -216,4 +216,70 @@ li.next.disabled{
 
 .next a{
     color: white;
+}
+
+.icon_direction{
+    margin-top: 20px;
+    width: 34px;
+}
+
+.form_add_user{
+    margin: 0 auto;
+    display: table;
+    position: relative;
+}
+
+.cr_user_logo{
+    margin: 0 auto;
+    display: table;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+dd input, dd select{
+     border: 1px solid #d6d3d3;    
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    padding:8px;
+    margin-bottom:20px;
+    width:300px;
+}
+
+ dd select{
+    width: 320px;
+ }
+
+ label{
+    margin-left: 40px; 
+ }
+
+.create_but{
+    border: 1px solid #d6d3d3;    
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+    padding: 10px 20px;
+    margin-bottom:20px;
+    background-color: green;
+    position: absolute;
+    right: 0;
+    color: white;
+}
+
+.errors{
+    color: red;    
+    display: inline;
+    position: absolute;
+    margin: 0;    
+    right: 0;
+    margin-right: -165px;
+    margin-top: -48px;
 }

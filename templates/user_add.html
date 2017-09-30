@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% from "_formhelpers.html" import render_field %}
 {% block body %}
-<a href="http://localhost:5000/"><img src="/static/img/icon_directionalleft.png"></a>
-<form method=post>
+<a href="http://localhost:5000/"><img class="icon_direction" src="/static/img/icon_directionalleft.png"></a>
+<span class="cr_user_logo">CREATE USER</span>
+<form class="form_add_user" method=post>
   <dl>
     {{ render_field(form.name) }}
     {{ render_field(form.email) }}
@@ -10,6 +11,6 @@
     {{ render_field(form.m_phone) }}
     {{ render_field(form.status) }}
   </dl>
-  <p><input type=submit value=Register>
+  <p><input class="create_but" type=submit value=Create>
 </form>
 {% endblock %}
