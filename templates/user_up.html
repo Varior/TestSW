@@ -13,16 +13,37 @@
     {{ render_field(form.m_phone) }}
     {{ render_field(form.status) }}
   </dl>  
-    {% if courses_fr %}      
-      {% for key in courses_fr %}      
-        <li>{{courses_fr[key]}}<a href='http://localhost:5000/user/{{ user_id }}/{{key}}/add'>+</a></li>     
-      {% endfor %}
+    {% if courses_fr %}
+    <div>
+      <dt><label>Courses</label></dt>
+      <dd class="select_add">
+          <select id="courses_select">    
+              {% for key in courses_fr %}      
+                <option value="{{key}}">{{courses_fr[key]}}</option>
+              {% endfor %}
+          </select>        
+      <a id="add_course" href=""><img class="add_course_im" src="/static/img/icon_add.png" width="34px" alt="Add User"></a>
+      </dd>   
+    </div>
    {% endif %}
   {% if courses %}
     {% for courses in courses %}
-      {{courses[1]}}  <a href='http://localhost:5000/user/{{ user_id }}/{{courses[2]}}/delete'>x</a></li>
+      <div class="add_courses_list">
+        {{courses[1]}}  <a href='http://localhost:5000/user/{{user_id}}/{{courses[2]}}/delete'><span class="course_delede">&otimes;</span></a>
+      </div>
     {% endfor %}
    {% endif %}
   <p><input class="create_but" type=submit value=Save>
 </form>
+<script type=text/javascript>
+var select = document.getElementById('courses_select')
+for (var i = 0; i < select.options.length; i++) {
+  var option = select.options[i];
+  if(option.selected) {
+    var key = option.value;
+  }
+}
+var url_add = "http://localhost:5000/user/2/"+key+"/add"
+document.getElementById('add_course').href = url_add;
+</script>
 {% endblock %}

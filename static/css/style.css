@@ -257,6 +257,11 @@ dd input, dd select{
  label{
     margin-left: 40px; 
  }
+ 
+ dl{
+  -webkit-margin-after: 0;  
+ }   
+
 
 .create_but{
     border: 1px solid #d6d3d3;    
@@ -282,4 +287,38 @@ dd input, dd select{
     right: 0;
     margin-right: -165px;
     margin-top: -48px;
+}
+
+
+.add_courses_list{
+    -webkit-margin-start: 40px;
+    border-bottom-color: gray;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    position: relative;
+}
+
+.add_courses_list a{
+    text-decoration: none;
+}
+
+div.add_courses_list::nth-last-child(1){
+    border: none;
+}
+
+.course_delede{
+    color: grey;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+
+.select_add select{
+    width: 250px;
+}
+
+
+.add_course_im{
+    margin-left: 25px;
+    margin-bottom: -10px;
 }
