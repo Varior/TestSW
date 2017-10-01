@@ -50,6 +50,12 @@ def users_list():
     return render_template('users.html', users=users, pagination=pagination)
 
 
+@app.route('/courses', methods=['GET'])
+def courses():
+    return render_template('courses.html', courses=COURSES_DIC)
+
+
+
 @app.route('/user/add', methods=['GET','POST'])
 def user_add():
     form = UserForm(request.form)

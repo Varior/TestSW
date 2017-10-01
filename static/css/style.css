@@ -322,3 +322,10 @@ div.add_courses_list::nth-last-child(1){
     margin-left: 25px;
     margin-bottom: -10px;
 }
+
+.courses_page_header{
+    margin: 20px;
+    text-align: center;
+    font-weight: bold;
+    font-family: sans-serif;
+}

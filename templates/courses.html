@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="courses_page_header">
+  <span class="course_head">COURSES</span>
+</div>   
+  <table class="table_users">
+      <tr class="table_h">    
+        <th class="t_col">NAME</th>
+        <th class="t_col">CODE</th>       
+      </tr>
+        {% for course in courses %}
+              <tr>
+                  <td>{{ courses[course] }}</td>
+                  <td>{{ course }}</td>
+        {% endfor %}        
+  </table>  
+{% endblock %}
