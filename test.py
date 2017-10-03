@@ -58,6 +58,7 @@ def courses():
 
 @app.route('/user/add', methods=['GET','POST'])
 def user_add():
+    msg=''
     form = UserForm(request.form)
     if request.method == 'POST' and form.validate():
         _name = form.name.data
@@ -68,7 +69,8 @@ def user_add():
         cursor = mysql.connect().cursor()
         cursor.callproc('create_user',(_name,_email,_phone,_mphone,_status))
         cursor.close()
-        return redirect('/')
+        msg='User created successfully'
+        return render_template('user_add.html', form=form, msg=msg)
     return render_template('user_add.html', form=form)
 
 
@@ -117,9 +119,9 @@ def user_update(user_id):
             _status = form.status.data
             cursor = mysql.connect().cursor()
             cursor.callproc('update_user',(user_id,_email,_phone,_mphone,_status))
-            cursor.close()            
-            msg='User created successful'
-            return redirect("/")    
+            cursor.close()
+            msg='Changes saved successfully'            
+            return render_template('user_up.html', form=form, msg=msg)  
         return render_template('user_up.html', form=form, courses=courses, courses_fr=courses_fr, user_id=user_id)       
     return render_template('error.html', msg_eror="not id {}".format(user_id))
 

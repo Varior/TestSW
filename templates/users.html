@@ -7,6 +7,11 @@
             <input class="search_button" type="image" src="/static/img/icon_search.png" alt="Search">
             <input  class="search_form" type="search" name="sname" placeholder="Search field">
             <span class="user_head">USERS</span>
+              {% if msg %}
+                <div id="msg">
+                  {{ msg }}
+                </div>
+              {% endif %}
             <span class="reco">
               <select class="reco_field" name="records" id="res" onchange="form.submit()">
                 <option value=10>10</option>

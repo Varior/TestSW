@@ -3,6 +3,11 @@
 {% block body %}
 <a href="http://localhost:5000/"><img class="icon_direction" src="/static/img/icon_directionalleft.png"></a>
 <span class="cr_user_logo">CREATE USER</span>
+  {% if msg %}
+    <div id="msg">
+        {{ msg }}
+    </div>
+  {% endif %}
 <form class="form_add_user" method=post>
   <dl>
     {{ render_field(form.name) }}
@@ -13,4 +18,9 @@
   </dl>
   <p><input class="create_but" type=submit value=Create>
 </form>
+<script type=text/javascript>
+  if (document.getElementById("msg")) {
+    setTimeout("document.location.href='http://localhost:5000/'", 3000);
+  }
+</script>
 {% endblock %}
