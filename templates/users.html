@@ -6,12 +6,7 @@
         <form class="search">         
             <input class="search_button" type="image" src="/static/img/icon_search.png" alt="Search">
             <input  class="search_form" type="search" name="sname" placeholder="Search field">
-            <span class="user_head">USERS</span>
-              {% if msg %}
-                <div id="msg">
-                  {{ msg }}
-                </div>
-              {% endif %}
+            <span class="user_head">USERS</span>             
             <span class="reco">
               <select class="reco_field" name="records" id="res" onchange="form.submit()">
                 <option value=10>10</option>
@@ -54,15 +49,21 @@
     {{ pagination.links }}
    {% endif %}
 <script type=text/javascript>
-var tmp = new Array();
-var tmp2 = new Array();
+var tmp = [];
+var tmp2 = [];
 var get = location.search;
 if (get != '') {
   tmp = (get.substr(1)).split('&');
   for (var i = 0; i < tmp.length; i++) {
-    tmp2 = tmp[i].split('=');}
+    tmp2.push(tmp[i].split('='));}
 }
-switch (tmp2[1]) {
+for (var i = 0; i < tmp2.length; i++) {
+  if (tmp2[i][0] == "records") {
+    var nrec = tmp2[i][1];
+    break;
+  };
+}
+switch (nrec) {
     case "15":
         f = 1;
         break; 

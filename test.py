@@ -1,11 +1,11 @@
 import os.path
 from flask import Flask, request, redirect, render_template, send_from_directory
 from flask_paginate import Pagination, get_page_parameter
-from flaskext.mysql import MySQL
+from mysql_procedure.mysqlcomm import MysqlCommands
 from form.userForms import UserForm
 from form.userUpdate import UserUpdate
 
-mysql = MySQL()
+db = MysqlCommands()
 app = Flask(__name__, static_url_path='')
 
 
@@ -13,7 +13,7 @@ app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = '1111'
 app.config['MYSQL_DATABASE_DB'] = 'Users'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)
+db.init_app(app)
 
 COURSES_DIC = {"P012345":"Python-Base","P23456":"Python-Database","H345678":"HTML",
                "J456789":"Java-Base", "JS543210":"JavaScript-Base"}
@@ -30,30 +30,20 @@ def users_list():
     qs = request.args.get("sname", type=str)
     rec = request.args.get("records",type=int)
     if not rec:
-        rec = 10
-    cursor = mysql.connect().cursor()
-    cursor.callproc('count_all')
-    total = cursor.fetchall()
-    cursor.close()    
-    if qs:
-        cursor = mysql.connect().cursor()
-        cursor.callproc('find_user',(qs,))
-        users = cursor.fetchall()
-        cursor.close()
+        rec = 10    
+    total = db.count_all()    
+    if qs:        
+        users = db.find(qs)        
         return render_template('users.html', users=users)
     start = page*rec-rec
-    cursor = mysql.connect().cursor()
-    cursor.callproc('pagination', (start, rec))
-    users = cursor.fetchall()
-    cursor.close()
-    pagination = Pagination(page=page, total=total[0][0], per_page=rec, record_name='users')
+    users = db.pagination(start, rec)
+    pagination = Pagination(page=page, total=total[0], per_page=rec, record_name='users')
     return render_template('users.html', users=users, pagination=pagination)
 
 
 @app.route('/courses', methods=['GET'])
 def courses():
     return render_template('courses.html', courses=COURSES_DIC)
-
 
 
 @app.route('/user/add', methods=['GET','POST'])
@@ -65,11 +55,8 @@ def user_add():
         _email = form.email.data
         _phone = form.phone.data
         _mphone = form.m_phone.data
-        _status = form.status.data
-        cursor = mysql.connect().cursor()
-        cursor.callproc('create_user',(_name,_email,_phone,_mphone,_status))
-        cursor.close()
-        msg='User created successfully'
+        _status = form.status.data        
+        msg = db.create_user(_name,_email,_phone,_mphone,_status)
         return render_template('user_add.html', form=form, msg=msg)
     return render_template('user_add.html', form=form)
 
@@ -77,33 +64,27 @@ def user_add():
 @app.route('/user/<user_id>/delete', methods=['GET'])
 def user_delete(user_id):
     if user_id:
-        cursor = mysql.connect().cursor()
-        cursor.callproc('delete_user',(user_id,))
-        cursor.close()
+        db.delete_user(user_id)
         return redirect('/')
     return render_template('error.html', msg_eror="not id {}".format(user_id))
 
 
 @app.route('/user/<user_id>', methods=['GET','POST'])
 def user_update(user_id):
-    courses_fr={}
-    msg=''
-    cursor = mysql.connect().cursor()
-    cursor.callproc('select_user',(user_id,))
-    user = cursor.fetchone()
-    cursor.callproc('find_course',(user_id,))
-    courses = cursor.fetchall()
-    cursor.close()
+    courses_fr = {}
+    msg = ''
+    user = db.find_user(user_id)    
+    courses = db.find_user_courses(user_id)    
     if courses:
-        code_col ={}
+        code_col = {}
         for code in courses:
-            code_col[code[2]]=code[1]
+            code_col[code[2]] = code[1]
         for course in COURSES_DIC:
             if not course in code_col:
                 if not course in courses_fr:
-                 courses_fr[course]=COURSES_DIC[course]
+                 courses_fr[course] = COURSES_DIC[course]
     else:
-        courses_fr=COURSES_DIC.copy()
+        courses_fr = COURSES_DIC.copy()
     if user:  
         form = UserUpdate(request.form)
         if request.method == 'GET':
@@ -116,12 +97,9 @@ def user_update(user_id):
             _email = form.email.data
             _phone = form.phone.data
             _mphone = form.m_phone.data
-            _status = form.status.data
-            cursor = mysql.connect().cursor()
-            cursor.callproc('update_user',(user_id,_email,_phone,_mphone,_status))
-            cursor.close()
-            msg='Changes saved successfully'            
-            return render_template('user_up.html', form=form, msg=msg)  
+            _status = form.status.data            
+            msg = db.change_user_info(user_id,_email,_phone,_mphone,_status)
+            return render_template('user_up.html', form=form, courses=courses, courses_fr=courses_fr, user_id=user_id, msg=msg)
         return render_template('user_up.html', form=form, courses=courses, courses_fr=courses_fr, user_id=user_id)       
     return render_template('error.html', msg_eror="not id {}".format(user_id))
 
@@ -129,19 +107,14 @@ def user_update(user_id):
 @app.route('/user/<user_id>/<course_code>/add')
 def add_course(user_id, course_code):
     course_name = COURSES_DIC[course_code]
-    cursor = mysql.connect().cursor()
-    cursor.callproc('create_course',(course_name,course_code,user_id,))
-    cursor.close()
+    db.create_course(user_id, course_name, course_code)  
     return redirect("/user/{}".format(user_id)) 
 
 
 @app.route('/user/<user_id>/<course_code>/delete')
 def del_course(user_id, course_code):
-
-    cursor = mysql.connect().cursor()    
-    cursor.callproc('delete_course',(user_id,course_code))
-    cursor.close()
-    return redirect("/user/{}".format(user_id)) 
+    db.delete_course(user_id,course_code)    
+    return redirect("/user/{}".format(user_id))
 
 
 if __name__ == '__main__':

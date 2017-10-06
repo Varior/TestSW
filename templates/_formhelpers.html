@@ -4,11 +4,19 @@
   <dd>{{ field(**kwargs)|safe }}
   </dd>
   {% if field.errors %}
-    <p class=errors>
-    {% for error in field.errors %}
-      !&nbsp;&nbsp;&nbsp;{{ error }}
-    {% endfor %}
-    </p>
+    {% if field.label.text == "*E-mail" %}
+      <p class=errors_email>
+        {% for error in field.errors %}
+          !&nbsp;&nbsp;&nbsp;{{ error }}
+        {% endfor %}
+      </p>
+    {% else %}
+      <p class=errors>
+        {% for error in field.errors %}
+          !&nbsp;&nbsp;&nbsp;{{ error }}
+        {% endfor %}
+      </p>
+    {% endif %}
   {% endif %}
   </div>  
 {% endmacro %}

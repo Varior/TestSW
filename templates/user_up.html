@@ -3,6 +3,11 @@
 {% block body %}
 <a href="http://localhost:5000/"><img class="icon_direction" src="/static/img/icon_directionalleft.png"></a>
 <span class="cr_user_logo">CHANGE USER</span>
+    {% if msg %}
+    <div id="msg">
+      {{ msg }}
+    </div>
+    {% endif %}
 <form class="form_add_user" method=post>
   <dl> 
     <dt>{{ form.name.label }}</dt>

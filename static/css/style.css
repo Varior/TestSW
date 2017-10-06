@@ -285,10 +285,19 @@ dd input, dd select{
     position: absolute;
     margin: 0;    
     right: 0;
-    margin-right: -165px;
+    margin-right: -110px;
     margin-top: -48px;
 }
 
+.errors_email{
+    color: red;    
+    display: inline;
+    position: absolute;
+    margin: 0;    
+    right: 0;
+    margin-right: -180px;
+    margin-top: -48px;
+}
 
 .add_courses_list{
     -webkit-margin-start: 40px;
